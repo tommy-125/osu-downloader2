@@ -22,10 +22,6 @@ func GetCredentials() {
 	data.Set("scope", "public")
 	bodyReader := strings.NewReader(data.Encode())
 
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
-
 	req, err := http.NewRequest("POST", apiUrl, bodyReader)
 	if err != nil {
 		return
@@ -33,6 +29,10 @@ func GetCredentials() {
 
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
 
 	resp, err := client.Do(req)
 	if err != nil {
